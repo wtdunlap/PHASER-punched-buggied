@@ -7,7 +7,6 @@ export class Game extends Scene {
 
     init() {
         this.cameras.main.fadeIn(1000, 255, 255, 255);
-        this.scene.add("HUD");
     }
 
     create() {
