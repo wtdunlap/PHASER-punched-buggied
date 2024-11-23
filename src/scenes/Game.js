@@ -86,13 +86,17 @@ export class Game extends Scene {
             }
         });
 
-        this.timerEvent = this.time.addEvent({ delay: Phaser.Math.Between(500, 3000), callback: this.onEvent, callbackScope: this, loop: true });
+        this.timerEvent = this.time.addEvent({ delay: Phaser.Math.Between(750, 2500), callback: this.onEvent, callbackScope: this, loop: true });
     }
 
     onEvent() {
         const car = new Car(this);
         car.makeTexture();
         this.texture = car.texture;
+    }
+
+    gameOver() {
+        this.scene.start("GameOver", {score: this.score})
     }
 
     update() {
@@ -103,6 +107,9 @@ export class Game extends Scene {
         if (this.hits !== this.workingHits) {
             this.hitsText.setText("Hits: " + this.hits);
             this.workingHits = this.hits;
+        }
+        if (this.hits <= 0) {
+            this.gameOver();
         }
     }
 }

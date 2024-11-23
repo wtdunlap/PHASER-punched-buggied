@@ -44,84 +44,83 @@ export class Car extends Phaser.GameObjects.Image {
         const rarity = Phaser.Math.Between(1, 10);
         if (rarity === 10) {
             this.makeCar("buggy");
-            return this.texture;
         } else if (rarity <= 9 && rarity >= 7) {
             switch (Phaser.Math.Between(1, 8)) {
                 case 1:
                     // this.makeCar("ambulance");
                     console.log("ambulance");
-                    return this.texture;
+                    break;
                 case 2:
                     // this.makeCar("broDozer");
                     console.log("broDozer");
-                    return this.texture;
+                    break;
                 case 3:
                     // this.makeCar("fireTruck");
                     console.log("fireTruck");
-                    return this.texture;
+                    break;
                 case 4:
                     // this.makeCar("mail");
                     console.log("mail");
-                    return this.texture;
+                    break;
                 case 5:
                     // this.makeCar("playmobile");
                     console.log("playmobile");
-                    return this.texture;
+                    break;
                 case 6:
                     // this.makeCar("police");
                     console.log("police");
-                    return this.texture;
+                    break;
                 case 7:
                     // this.makeCar("smartCar");
                     console.log("smartCar");
-                    return this.texture;
+                    break;
                 case 8:
                     // this.makeCar("sodaTruck");
                     console.log("sodaTruck");
-                    return this.texture;
+                    break;
             }
         } else if (rarity <= 6) {
             switch (Phaser.Math.Between(1, 10)) {
                 case 1:
                     // this.makeCar("bigRig");
                     console.log("bigRig");
-                    return this.texture;
+                    break;
                 case 2:
                     // this.makeCar("boxTruck");
                     console.log("boxTruck");
-                    return this.texture;
+                    break;
                 case 3:
                     this.makeCar("coupe");
                     console.log("coupe");
-                    return this.texture;
+                    break;
                 case 4:
                     this.makeCar("hatch");
                     console.log("hatch");
-                    return this.texture;
+                    break;
                 case 5:
                     // this.makeCar("jeep");
                     console.log("jeep");
-                    return this.texture;
+                    break;
                 case 6:
                     // this.makeCar("muscleCar");
                     console.log("muscleCar");
-                    return this.texture;
+                    break;
                 case 7:
                     this.makeCar("sport");
                     console.log("sport");
-                    return this.texture;
+                    break;
                 case 8:
                     // this.makeCar("SUV");
                     console.log("SUV");
-                    return this.texture;
+                    break;
                 case 9:
                     // this.makeCar("truck");
                     console.log("truck");
-                    return this.texture;
+                    break;
                 case 10:
                     // this.makeCar("van");
                     console.log("van");
-                    return this.texture;
+                    break;
             }
         }
     }
