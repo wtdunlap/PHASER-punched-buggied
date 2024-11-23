@@ -1,3 +1,10 @@
+@font-face {
+    font-family: surfer;
+    src: url("assets/fonts/Original_Surfer/OriginalSurfer-Regular.ttf");
+    font-weight: 400;
+    font-weight: normal;
+}
+
 body {
     margin: 0;
     padding: 0;

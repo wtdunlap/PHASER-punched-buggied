@@ -5,18 +5,16 @@ export class GameOver extends Scene {
         super("GameOver");
     }
 
-    init() {}
-
-    scaleText() {
-        
+    init(data) {
+        this.score = data.score;
     }
 
     create() {
         this.cameras.main.setBackgroundColor(0xffffff);
 
         this.text = this.add
-            .text(512, 384, "Game Over", {
-                fontFamily: "Arial Black",
+            .text(512, 384, `Game Over\nFinal Score: ${this.score}`, {
+                fontFamily: "surfer",
                 fontSize: 64,
                 color: "#ffffff",
                 stroke: "#000000",
@@ -25,18 +23,17 @@ export class GameOver extends Scene {
             })
             .setOrigin(0.5);
 
-            this.tweens.add({
-                targets: this.text,
-                scale: 1.5,
-                ease: "Sine.easeInOut",
-                yoyo: true,
-                repeat: -1,
-                repeatDelay: 0,
-            });
+        this.tweens.add({
+            targets: this.text,
+            scale: 1.5,
+            ease: "Sine.easeInOut",
+            yoyo: true,
+            repeat: -1,
+            repeatDelay: 0,
+        });
 
         this.input.once("pointerdown", () => {
             this.scene.start("MainMenu");
-            music.play();
         });
     }
 }

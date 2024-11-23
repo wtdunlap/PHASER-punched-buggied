@@ -5,22 +5,29 @@ export class MainMenu extends Scene {
         super("MainMenu");
     }
 
+    init() {
+        let music = this.sound.add("theme", { volume: 0.15 });
+        music.loop = true;
+        music.play();
+    }
+
     create() {
         this.add
             .image(
                 this.sys.game.config.width / 2,
                 this.sys.game.config.height / 2 + 75,
-                "grey"
+                "hatch"
             )
-            .setOrigin(0.5).setScale(2.5);
+            .setOrigin(0.5)
+            .setScale(1.5);
 
         this.title = this.add
             .text(512, 260, "Road Trip! \nEveryone in the car", {
-                fontFamily: "Courier New",
+                fontFamily: "surfer",
                 fontSize: 70,
                 color: "#ffffff",
                 stroke: "#000000",
-                strokeThickness: 15,
+                strokeThickness: 8,
                 align: "center",
             })
             .setOrigin(0.5);
@@ -35,8 +42,7 @@ export class MainMenu extends Scene {
         });
 
         this.input.once("pointerdown", () => {
-            let door = this.sound.add("door");
-            door.play();
+            this.sound.add("door").play();
             this.cameras.main.fadeOut(1000, 255, 255, 255);
             this.cameras.main.once(
                 Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,

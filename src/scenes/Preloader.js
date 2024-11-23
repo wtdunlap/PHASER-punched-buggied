@@ -1,4 +1,4 @@
-import Phaser, { Scene } from "phaser";
+import { Scene } from "phaser";
 
 export class Preloader extends Scene {
     constructor() {
@@ -8,34 +8,29 @@ export class Preloader extends Scene {
     preload() {
         this.load.setPath("assets");
 
-        this.load.image("grey", "./textures/grey.png");
-        this.load.image("red", "./textures/red.png");
-        this.load.image("yellow", "./textures/yellow.png");
-        this.load.image("window", "./textures/window.png");
+        this.load.image("coupe", "./textures/coupe.png");
+        this.load.image("sport", "./textures/sport.png");
+        this.load.image("hatch", "./textures/hatch.png");
+        this.load.image("buggy", "./textures/rare/buggy.png");
+        this.load.image("interior", "./textures/interior.png");
         this.load.image("splash", "./textures/splash.png");
-        this.load.image("splash2", "./textures/splash2.png");
 
         this.load.audio("door", "./sounds/openThenClose.mp3");
         this.load.audio("theme", "./sounds/joakimKarud_enjoy.mp3");
     }
 
     create() {
-        let image = this.add.image(
-            this.cameras.main.width / 2,
-            this.cameras.main.height / 2,
-            "splash2"
-        );
-        let music = this.sound.add("theme", { volume: 0.25 });
-
-        let scaleX = this.cameras.main.width / image.width;
-        let scaleY = this.cameras.main.height / image.height;
-        let scale = Math.max(scaleX, scaleY);
-        image.setScale(scale).setScrollFactor(0);
+        this.add
+            .image(
+                this.cameras.main.width / 2,
+                this.cameras.main.height / 2,
+                "splash"
+            )
+            .setScale(0.55)
+            .setOrigin(0.5);
 
         this.input.once("pointerdown", () => {
             this.scene.start("MainMenu");
-            music.loop = true;
-            music.play();
         });
     }
 }
