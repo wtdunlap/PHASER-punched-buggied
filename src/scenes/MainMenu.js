@@ -6,9 +6,19 @@ export class MainMenu extends Scene {
     }
 
     init() {
-        let music = this.sound.add("theme", { volume: 0.15 });
-        music.loop = true;
-        music.play();
+        if (this.sound.get("theme")) {
+            if (this.sound.get("theme").isPaused) {
+                this.sound.get("theme").resume();
+            }
+        } else {
+            let music = this.sound.add("theme", { volume: 0.15 });
+            if (music.isPaused === true) {
+                music.resume();
+            } else {
+                music.play();
+            }
+            music.loop = true;
+        }
     }
 
     create() {

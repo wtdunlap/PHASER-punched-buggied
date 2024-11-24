@@ -7,13 +7,14 @@ export class GameOver extends Scene {
 
     init(data) {
         this.score = data.score;
+        this.sound.get("theme").pause();
     }
 
     create() {
         this.cameras.main.setBackgroundColor(0xffffff);
 
         this.text = this.add
-            .text(512, 384, `Game Over\nFinal Score: ${this.score}`, {
+            .text(512, this.cameras.main.height / 2, `Game Over\nFinal Score: ${this.score}`, {
                 fontFamily: "surfer",
                 fontSize: 64,
                 color: "#ffffff",
