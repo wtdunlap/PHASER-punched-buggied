@@ -1,5 +1,6 @@
 import Phaser, { Scene } from "phaser";
-import { Car } from "../game-objects/car";
+import makeTexture from "../utils/makeTexture";
+// import { Car } from "../game-objects/car";
 
 export class Game extends Scene {
     constructor() {
@@ -9,11 +10,15 @@ export class Game extends Scene {
         this.hits;
         this.workingHits;
         this.timerEvent;
-        this.texture;
+        this.statArray = [];
+        this.activeCars = [];
+        this.buggyX;
+        this.clicked = false;
+        this.clickable = false;
     }
 
     init() {
-        if (!this.score) {
+        if (!this.score || this.score > 0) {
             this.score = 0;
         }
         this.workingScore = this.score;
@@ -25,7 +30,6 @@ export class Game extends Scene {
 
     create() {
         // setup scene
-        const car = new Car(this);
         this.cameras.main
             .setBackgroundColor(0xffffff)
             .fadeIn(1000, 255, 255, 255);
@@ -75,30 +79,105 @@ export class Game extends Scene {
             console.log("sitting in the car");
         });
 
+        // timer event that fires between every 1.5 and 2.5 seconds
+        this.timerEvent = this.time.addEvent({
+            delay: Phaser.Math.Between(1500, 2500),
+            callback: this.onEvent,
+            callbackScope: this,
+            loop: true,
+        });
+
         // controls
         this.input.on("pointerdown", () => {
-            if (this.texture == "buggy") {
+            if (this.clickable == true && this.clicked == false) {
+                console.log("acceptable");
                 this.score = this.score + 1;
-                console.log("Scored");
+                this.clicked = true;
             } else {
                 this.hits = this.hits - 1;
             }
+            // if (this.clickable == true) {
+            //     if (this.clicked == false) {
+            //     this.score = this.score + 1;
+            //     this.clicked = true;
+            // } else {
+            //         this.hits = this.hits - 1;
+            //     }
+            // }
         });
-
-        // timer event that fires between every 0.75 and 2.5 seconds
-        this.timerEvent = this.time.addEvent({ delay: Phaser.Math.Between(750, 2500), callback: this.onEvent, callbackScope: this, loop: true });
     }
 
     // makes a new car and reference the texture used
     onEvent() {
-        const car = new Car(this);
-        car.makeTexture();
-        this.texture = car.texture;
+        this.statArray = makeTexture();
+        this.makeCar(this.statArray);
+    }
+
+    makeCar() {
+        let [texture, scale] = this.statArray;
+        console.log(`making ${texture}`);
+        if (texture !== "blank") {
+            const newCar = this.add
+                .image(1500, 225, texture)
+                .setScale(scale)
+                .setDepth(-1);
+            newCar.setInteractive();
+
+            if (
+                texture == "bigRig" ||
+                texture == "bigRig2" ||
+                texture == "bigRig3"
+            ) {
+                newCar.setScale(scale);
+                newCar.setDepth(-5);
+                this.tweens.add({
+                    targets: newCar,
+                    x: { from: 3000, to: -3000 },
+                    duration: 5500,
+                    repeat: 0,
+                    onStart: function () {
+                        console.log(`${texture} driving by`);
+                    },
+                    onComplete: function () {},
+                });
+            } else {
+                this.tweens.add({
+                    targets: newCar,
+                    x: { from: 1500, to: -500 },
+                    duration: 2500,
+                    repeat: 0,
+                    onStart: function () {
+                        if (texture == "buggy") {
+                            console.log(`🤣😂😁${texture} driving by`);
+                            this.clickable = false;
+                            this.clicked = false;
+                        } else {
+                            console.log(`${texture} driving by`);
+                            this.clickable = false;
+                            this.clicked = false;
+                        }
+                    },
+                    onUpdate: (tween, target) => {
+                        if (texture == "buggy" && target.visible == true) {
+                            this.clickable = true;
+                        } else {
+                            this.clickable = false;
+                        }
+                    },
+                    onComplete: function () {
+                        this.clickable = false;
+                        this.clicked = false;
+                    },
+                });
+            }
+        } else {
+            console.log("bad texture");
+        }
     }
 
     // stops and passes current score to gameover screen
     gameOver() {
-        this.scene.start("GameOver", {score: this.score})
+        this.scene.start("GameOver", { score: this.score });
     }
 
     update() {

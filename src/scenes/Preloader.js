@@ -21,15 +21,15 @@ export class Preloader extends Scene {
         // this.load.image("hatch2", "./textures/hatch2.png");
         // this.load.image("hatch3", "./textures/hatch3.png");
 
-        // this.load.image("jeep", "./textures/jeep.png");
+        this.load.image("jeep", "./textures/jeep.png");
         // this.load.image("jeep2", "./textures/jeep2.png");
         // this.load.image("jeep3", "./textures/jeep3.png");
 
-        // this.load.image("muscleCar", "./textures/muscleCar.png");
+        this.load.image("muscleCar", "./textures/muscleCar.png");
         // this.load.image("muscleCar2", "./textures/muscleCar2.png");
         // this.load.image("muscleCar3", "./textures/muscleCar3.png");
 
-        // this.load.image("SUV", "./textures/SUV.png");
+        this.load.image("SUV", "./textures/SUV.png");
         // this.load.image("SUV2", "./textures/SUV2.png");
         // this.load.image("SUV3", "./textures/SUV3.png");
 
